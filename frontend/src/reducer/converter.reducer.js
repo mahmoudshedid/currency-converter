@@ -4,7 +4,7 @@ export const initialState = {
     status: true,
     hasErrors: false,
     message: '',
-    loading: true,
+    loading: false,
     amount: 0,
 }
 
@@ -24,7 +24,7 @@ export default function gameReducer(state = initialState, action) {
             }
 
         case actions.CONVERT_AMOUNT_FAILURE:
-            return { ...state, status: false, hasErrors: true }
+            return { ...state, status: false, hasErrors: true, loading: false }
 
         default:
             return state

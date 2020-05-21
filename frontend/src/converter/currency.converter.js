@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import { fetchConvertAmount } from '../action/converter.action'
+import ButtonProgress from '../progress/button.progress'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,9 +71,7 @@ const CurrencyConverter = ({ dispatch, status, message, hasErrors, loading, amou
 
             <p>To Euro:</p>
             <p>€ {amount}</p>
-            <Button variant="contained" color="primary" onClick={onClickChangeAmount}>
-                Convert
-            </Button>
+            <ButtonProgress loading={loading} onClick={onClickChangeAmount.bind(this)} />
         </div>
     );
 }
