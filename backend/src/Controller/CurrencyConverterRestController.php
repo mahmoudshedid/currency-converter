@@ -33,15 +33,15 @@ class CurrencyConverterRestController
 
         if ($amount == '' ||  $fromTo == '') {
             return new JsonResponse([
-                'status' => 'false',
-                'message' => 'Please provide the amount and from_to',
+                'status' => 'error',
+                'message' => 'Please provide the \'amount\' and \'from_to\'',
                 'amount' => ''
             ], Response::HTTP_CREATED);
         }
 
         $amount = $this->currencyConverterService->currencyConverter($amount, $fromTo);
         return new JsonResponse([
-            'status' => 'true',
+            'status' => 'success',
             'message' => 'Converted successfully.',
             'amount' => $amount
         ], Response::HTTP_CREATED);

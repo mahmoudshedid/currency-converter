@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import NumberFormat from 'react-number-format';
-import { fetchConvertAmount } from '../action/converter.action'
-import ButtonProgress from '../progress/button.progress'
+import { fetchConvertAmount } from '../action/converter.action';
+import ButtonProgress from '../progress/button.progress';
+import NotificationSnackbar from '../notification/notification.snackbar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 function NumberFormatCustom(props) {
     const { inputRef, onChange, ...other } = props;
-
     return (
         <NumberFormat
             {...other}
@@ -37,8 +37,9 @@ function NumberFormatCustom(props) {
     );
 }
 
-const CurrencyConverter = ({ dispatch, status, message, hasErrors, loading, amount }) => {
+const CurrencyConverter = (props) => {
     const classes = useStyles();
+    let fromTo = 'PLN_EUR';
 
     const [values, setValues] = React.useState({
         numberFormat: '0',
@@ -52,7 +53,7 @@ const CurrencyConverter = ({ dispatch, status, message, hasErrors, loading, amou
     };
 
     const onClickChangeAmount = () => {
-        dispatch(fetchConvertAmount(values.numberFormat));
+        props.dispatch(fetchConvertAmount(values.numberFormat, fromTo));
     }
 
     return (
@@ -70,8 +71,13 @@ const CurrencyConverter = ({ dispatch, status, message, hasErrors, loading, amou
             />
 
             <p>To Euro:</p>
-            <p>€ {amount}</p>
-            <ButtonProgress loading={loading} onClick={onClickChangeAmount.bind(this)} />
+            <p>€ {props.amount}</p>
+            <ButtonProgress loading={props.loading} onClick={onClickChangeAmount.bind(this)} />
+            <NotificationSnackbar
+                allowNotification={props.allowNotification}
+                status={props.status}
+                loading={props.loading}
+                message={props.message} />
         </div>
     );
 }
@@ -79,7 +85,7 @@ const CurrencyConverter = ({ dispatch, status, message, hasErrors, loading, amou
 const mapStateToProps = state => ({
     status: state.converterData.status,
     message: state.converterData.message,
-    hasErrors: state.converterData.hasErrors,
+    allowNotification: state.converterData.allowNotification,
     loading: state.converterData.loading,
     amount: state.converterData.amount,
 });

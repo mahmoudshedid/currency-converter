@@ -15,9 +15,10 @@ class CurrencyConverterService
 
     public function currencyConverter($amount, $fromTo): float
     {
+
         $response = $this->httpClient->request(
             'GET',
-            'https://free.currconv.com/api/v7/convert?q=' . $fromTo . '&compact=ultra&apiKey=da56a4cf4fee1b00ce79'
+            $_ENV['CURRENCY_API_URL'] . '?q=' . $fromTo . '&compact=ultra&apiKey=' . $_ENV['CURRENCY_API_KEY']
         );
 
         $data = $response->getContent();

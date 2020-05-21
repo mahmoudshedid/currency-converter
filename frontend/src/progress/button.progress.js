@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ButtonProgress(props) {
+const ButtonProgress = (props) => {
     const classes = useStyles();
 
     const buttonClassName = clsx({
@@ -65,3 +65,5 @@ export default function ButtonProgress(props) {
         </div>
     );
 }
+
+export default ButtonProgress;
