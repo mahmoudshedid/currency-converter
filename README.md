@@ -18,7 +18,7 @@ Then install dependencies by composer:
 composer install
 ```
 Then make sure you have install 'install Symfony CLI'
-If you don't have it you can install by folw this page:
+If you don't have it you can install by follow this page:
 [Install Symfony CLI](https://symfony.com/download)
 
 Then you can run the backend by:
